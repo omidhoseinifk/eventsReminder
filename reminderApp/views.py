@@ -1,10 +1,21 @@
+import requests
 from django.shortcuts import render, HttpResponse
 from reminderApp.models import Events
+from django.conf import settings
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 
 def main_page(request):
     return render(request, 'mainPage.html')
+
+def send_sms(request):
+    if request.method == 'POST':
+        message = request.POST.get('message')
+        phone = request.POST.get('phone')
+        sms_username = settings.SMS_USERNAME
+        sms_password = settings.SMS_PASSWORD
+        requests.get(f'https://RayganSMS.com/SendMessageWithUrl.ashx?Username={sms_username}&Password={sms_password}&PhoneNumber=5000221030&MessageBody={message}&RecNumber={phone}&Smsclass=1')
+    return render(request, 'send-sms.html')
 
 
 class AccountRegister:

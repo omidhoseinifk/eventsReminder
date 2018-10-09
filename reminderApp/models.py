@@ -14,7 +14,6 @@ class Events(models.Model):
 
     def __str__(self):
         return self.title
-        pass
 
     def date_time(self):
         print(datetime.datetime.now().strftime('%A, %Y-%m-%d, %H:%M'))
