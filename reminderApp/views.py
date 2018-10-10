@@ -3,10 +3,12 @@ from django.shortcuts import render, HttpResponse
 from reminderApp.models import Events
 from django.conf import settings
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.contrib import messages
 
 
 def main_page(request):
     return render(request, 'mainPage.html')
+
 
 def send_sms(request):
     if request.method == 'POST':
@@ -14,7 +16,17 @@ def send_sms(request):
         phone = request.POST.get('phone')
         sms_username = settings.SMS_USERNAME
         sms_password = settings.SMS_PASSWORD
-        requests.get(f'https://RayganSMS.com/SendMessageWithUrl.ashx?Username={sms_username}&Password={sms_password}&PhoneNumber=5000221030&MessageBody={message}&RecNumber={phone}&Smsclass=1')
+        request = requests.get(f'https://RayganSMS.com/SendMessageWithUrl.ashx?\
+                Username={sms_username}&Password={sms_password}\
+                &PhoneNumber=50005858312\
+                &MessageBody={message}&RecNumber={phone}\
+                &Smsclass=1')
+        try:
+            if request is True:
+                messages.success(request, 'Your message was sent successfully')
+        except exception as e:
+            messages.warning(request, 'Your message was not sent,\
+                please try again!!! Error:{}.format(e)')
     return render(request, 'send-sms.html')
 
 
@@ -39,11 +51,11 @@ class User(AccountRegister):
         super().__init__(mobile_number, email, password, confirm_password)
 
     def check_password(self):
-            if self._password == self._confirm_password:
-                pass
-            else:
-                print('Does not match password!!!')
-                self.check_password()
+        if self._password == self._confirm_password:
+            pass
+        else:
+            print('Does not match password!!!')
+            self.check_password()
 
     def change_password(self):
         old_password = input('Please enter old password: ')
