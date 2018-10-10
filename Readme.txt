@@ -1,3 +1,7 @@
+
+python version = 3.6.5
+
+
 beautifulsoup4==4.6.3
 bs4==0.0.1
 certifi==2018.8.24
