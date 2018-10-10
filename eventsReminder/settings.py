@@ -100,7 +100,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
@@ -120,5 +119,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+
+# username and password for RayganSMS
+
 SMS_USERNAME = 'omidhoseinifk'
-SMS_PASSWORD = '22882080225'
+SMS_PASSWORD = 'Pass1234'
